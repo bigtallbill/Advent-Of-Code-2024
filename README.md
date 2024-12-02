@@ -5,7 +5,7 @@ This repository contains my solutions for [Advent of Code 2024](https://adventof
 ## Project Structure
 
 Solutions are organized by day and part in the `lib` directory:
-- `d1p1/` - Day 1, Part 1
+- `d1/p1.ex` - Day 1, Part 1
 - etc.
 
 ## Running Solutions
