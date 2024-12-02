@@ -35,7 +35,7 @@ Each solution will display its result and execution time.
 
 ```bash
 # Clone the repository
-git clone [your-repo-url]
+git clone git@github.com:bigtallbill/Advent-Of-Code-2024.git
 
 # Install dependencies
 mix deps.get
@@ -49,3 +49,12 @@ Run the test suite with:
 mix test
 ```
 
+## Installing Elixir
+
+For most operating systems, see the [official installation guide](https://elixir-lang.org/install.html#by-operating-system).
+
+For NixOS, you can run Elixir without installing it:
+
+```bash
+nix-shell -p elixir_1_16
+```
