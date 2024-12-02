@@ -1,21 +1,51 @@
-# Aoc24
+# Advent of Code 2024 Solutions
 
-**TODO: Add description**
+This repository contains my solutions for [Advent of Code 2024](https://adventofcode.com/2024) implemented in Elixir.
+
+## Project Structure
+
+Solutions are organized by day and part in the `lib` directory:
+- `d1p1/` - Day 1, Part 1
+- etc.
+
+## Running Solutions
+
+You can run the solutions in multiple ways:
+
+### Run All Solutions
+
+```bash
+mix run -e "Aoc24.run_all"
+```
+
+### Run a Specific Day
+
+```bash
+mix run -e "Aoc24.run_day(1, 1)"  # Run Day 1, Part 1
+```
+
+Each solution will display its result and execution time.
+
+## Prerequisites
+
+- Elixir
+- Mix (Elixir's build tool)
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `aoc24` to your list of dependencies in `mix.exs`:
+```bash
+# Clone the repository
+git clone [your-repo-url]
 
-```elixir
-def deps do
-  [
-    {:aoc24, "~> 0.1.0"}
-  ]
-end
+# Install dependencies
+mix deps.get
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/aoc24>.
+## Testing
+
+Run the test suite with:
+
+```bash
+mix test
+```
 

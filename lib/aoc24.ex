@@ -1,18 +1,41 @@
 defmodule Aoc24 do
   @moduledoc """
-  Documentation for `Aoc24`.
+  Main module for running Advent of Code 2024 solutions.
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Aoc24.hello()
-      :world
-
+  Run all available solutions and display their results.
   """
-  def hello do
-    :world
+  def run_all do
+    IO.puts("\n🎄 Advent of Code 2024 Solutions 🎄\n")
+
+    [
+      {D1p1.P1, "Day 1, Part 1"}
+      # Add new solutions here as they are implemented
+    ]
+    |> Enum.each(&run_solution/1)
   end
+
+  @doc """
+  Run a specific day's solution.
+  """
+  def run_day(day, part) do
+    module = :"Elixir.D#{day}p#{part}.P#{part}"
+    run_solution({module, "Day #{day}, Part #{part}"})
+  end
+
+  defp run_solution({module, description}) do
+    {time, result} = :timer.tc(fn -> module.run() end)
+    IO.puts("#{description}: #{result}")
+    IO.puts("Time: #{format_time(time)}\n")
+  end
+
+  defp format_time(microseconds) when microseconds < 1000,
+    do: "#{microseconds}µs"
+
+  defp format_time(microseconds) when microseconds < 1_000_000,
+    do: "#{Float.round(microseconds / 1000, 2)}ms"
+
+  defp format_time(microseconds),
+    do: "#{Float.round(microseconds / 1_000_000, 2)}s"
 end

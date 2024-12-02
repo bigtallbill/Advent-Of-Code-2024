@@ -1,7 +1,7 @@
 defmodule D1p1.P1 do
   def run do
     input = File.read!("lib/d1p1/input.txt")
-    IO.inspect(calculate_absolute_differences(input) |> Enum.sum())
+    calculate_absolute_differences(input) |> Enum.sum()
   end
 
   def calculate_absolute_differences(input) do
