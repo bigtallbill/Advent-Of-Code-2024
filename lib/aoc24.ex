@@ -10,7 +10,7 @@ defmodule Aoc24 do
     IO.puts("\n🎄 Advent of Code 2024 Solutions 🎄\n")
 
     [
-      {D1p1.P1, "Day 1, Part 1"}
+      {D1.P1, "Day 1, Part 1"}
       # Add new solutions here as they are implemented
     ]
     |> Enum.each(&run_solution/1)
@@ -20,7 +20,7 @@ defmodule Aoc24 do
   Run a specific day's solution.
   """
   def run_day(day, part) do
-    module = :"Elixir.D#{day}p#{part}.P#{part}"
+    module = :"Elixir.D#{day}.P#{part}"
     run_solution({module, "Day #{day}, Part #{part}"})
   end
 
