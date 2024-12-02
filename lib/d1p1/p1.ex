@@ -13,20 +13,15 @@ defmodule D1p1.P1 do
 
   def parse_input(input) do
     input
-    |> String.split("\n")
-    |> Enum.map(fn line ->
-      line
-      |> String.split("   ")
-      # Remove empty strings
-      |> Enum.reject(&(&1 == ""))
-    end)
-    # Remove empty lists
-    |> Enum.reject(&(&1 == []))
+    |> String.split("\n", trim: true)
+    |> Enum.map(&String.split(&1, ~r/\s+/, trim: true))
   end
 
   def split_lists(original_list) do
-    left = Enum.map(original_list, &List.first/1) |> Enum.map(&String.to_integer/1)
-    right = Enum.map(original_list, &List.last/1) |> Enum.map(&String.to_integer/1)
+    {left, right} =
+      Enum.map(original_list, fn [l, r] -> {String.to_integer(l), String.to_integer(r)} end)
+      |> Enum.unzip()
+
     Enum.zip(Enum.sort(left), Enum.sort(right))
   end
 end
