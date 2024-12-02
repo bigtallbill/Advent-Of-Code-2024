@@ -8,20 +8,20 @@ defmodule D1.P1 do
     input
     |> parse_input_to_pairs()
     |> sort_and_zip_pairs()
-    |> Enum.map(fn {l, r} -> abs(l - r) end)
+    |> Stream.map(fn {l, r} -> abs(l - r) end)
   end
 
   def parse_input_to_pairs(input) do
     input
     |> String.split("\n", trim: true)
-    |> Enum.map(&String.split(&1, ~r/\s+/, trim: true))
+    |> Stream.map(&String.split(&1, ~r/\s+/, trim: true))
   end
 
   def sort_and_zip_pairs(original_list) do
     {left, right} =
-      Enum.map(original_list, fn [l, r] -> {String.to_integer(l), String.to_integer(r)} end)
+      Stream.map(original_list, fn [l, r] -> {String.to_integer(l), String.to_integer(r)} end)
       |> Enum.unzip()
 
-    Enum.zip(Enum.sort(left), Enum.sort(right))
+    Stream.zip(Enum.sort(left), Enum.sort(right))
   end
 end
