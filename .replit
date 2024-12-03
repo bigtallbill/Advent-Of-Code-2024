@@ -1,0 +1,9 @@
+modules = ["elixir-1_16"]
+#run = "mix run -e \"Aoc24.run_all\""
+run = "iex -S mix"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "mix run -e \"Aoc24.run_all\""]

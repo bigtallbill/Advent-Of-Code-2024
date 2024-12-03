@@ -24,3 +24,7 @@ aoc24-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Replit
+.mix
+.hex
