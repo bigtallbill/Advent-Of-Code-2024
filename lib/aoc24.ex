@@ -10,7 +10,8 @@ defmodule Aoc24 do
     IO.puts("\n🎄 Advent of Code 2024 Solutions 🎄\n")
 
     [
-      {D1.P1, "Day 1, Part 1"}
+      {D1.P1, "Day 1, Part 1"},
+      {D1.P2, "Day 1, Part 2"},
       # Add new solutions here as they are implemented
     ]
     |> Enum.each(&run_solution/1)
