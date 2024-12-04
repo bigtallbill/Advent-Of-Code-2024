@@ -5,7 +5,7 @@ defmodule D1.P2Test do
   test "parse_input_to_pairs splits input string into list of pairs" do
     input = "123   456\n234   567\n"
     expected = [["123", "456"], ["234", "567"]]
-    assert D1.P2.parse_input_to_pairs(input) |> Enum.to_list() == expected
+    assert D1.P2.parse_input_to_pairs(input) == expected
   end
 
   test "split_into_left_and_right splits pairs into two lists" do

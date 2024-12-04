@@ -11,11 +11,11 @@ defmodule D1.P2 do
   def parse_input_to_pairs(input) do
     input
     |> String.split("\n", trim: true)
-    |> Stream.map(&String.split(&1, ~r/\s+/, trim: true))
+    |> Enum.map(&String.split(&1, ~r/\s+/, trim: true))
   end
 
   def split_into_left_and_right(pairs) do
-    Stream.map(pairs, fn [l, r] -> {String.to_integer(l), String.to_integer(r)} end)
+    Enum.map(pairs, fn [l, r] -> {String.to_integer(l), String.to_integer(r)} end)
     |> Enum.unzip()
   end
 
