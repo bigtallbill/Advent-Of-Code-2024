@@ -46,4 +46,9 @@ defmodule D2.P2Test do
     assert D2.P2.count_unsafe_changes([8, 6, 4, 4, 1]) == 1  # Safe by removing the third level, 4
     assert D2.P2.count_unsafe_changes([1, 3, 6, 7, 9]) == 0  # Safe without removing any level
   end
+
+  test "dampen_list" do
+    assert D2.P2.dampen_list([1, 2, 3, 4, 5]) == {:increasing, 0, [1, 2, 3, 4, 5]}
+    assert D2.P2.dampen_list([1, 2, 3, 4, 5, 1]) == {:increasing, 1, [1, 2, 3, 4, 5]}
+  end
 end
