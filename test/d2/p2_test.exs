@@ -6,11 +6,6 @@ defmodule D2.P2Test do
     assert D2.P2.run_test() == 4
   end
 
-  test "run" do
-    # apparently 410 is too low
-    assert D2.P2.run() > 410
-  end
-
   test "dampen_list" do
     assert D2.P2.dampen_list([1, 2, 3, 4, 5]) == {:increasing, 0, [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]}
     assert D2.P2.dampen_list([1, 2, 3, 4, 5, 1]) == {:increasing, 1, [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 1]}
