@@ -14,7 +14,12 @@ defmodule D2.P2 do
     |> String.split("\n", trim: true)
     |> Enum.map(&split_line/1)
     |> Enum.map(&dampen_list/1)
-    |> Enum.filter(fn {state, _, _} -> state != :bad_direction and state != :bad_magnitude end)
+    |> tap(fn x ->
+      Enum.filter(x, fn {state, _, _, _} -> state == :bad_direction or state == :bad_magnitude end)
+      |> Enum.map(&IO.inspect(&1, charlists: :as_lists))
+    end)
+    |> tap(&IO.inspect(length(&1)))
+    |> Enum.filter(fn {state, _, _, _} -> state != :bad_direction and state != :bad_magnitude end)
     |> length()
   end
 
@@ -25,18 +30,18 @@ defmodule D2.P2 do
   end
 
   def dampen_list(list) do
-    dampen_list(list, :unknown, 0, [])
+    dampen_list(list, :unknown, 0, [], list)
   end
 
-  def dampen_list([], direction, count, acc) do
-    {direction, count, acc}
+  def dampen_list([], direction, count, acc, original_list) do
+    {direction, count, acc, original_list}
   end
 
-  def dampen_list([_], direction, count, acc) do
-    {direction, count, Enum.reverse(acc)}
+  def dampen_list([_], direction, count, acc, original_list) do
+    {direction, count, Enum.reverse(acc), original_list}
   end
 
-  def dampen_list([first, second | tail], current_dir, count, acc) do
+  def dampen_list([first, second | tail], current_dir, count, acc, original_list) do
     new_dir =
       cond do
         second > first -> :increasing
@@ -60,25 +65,25 @@ defmodule D2.P2 do
           bad_magnitude_change -> :bad_magnitude
         end
 
-        {error, count + 1, Enum.reverse(acc)}
+        {error, count + 1, Enum.reverse(acc), original_list}
       else
         # if we can survive the first change,
         # then return the acc without adding the element that caused the change
-        dampen_list([first | tail], current_dir, count + 1, acc)
+        dampen_list([first | tail], current_dir, count + 1, acc, original_list)
       end
     else
       if length(acc) == 0 do
         # add the first 2 elements to the acc if we have no elements yet
         # we need to do this because we'll loose the first element otherwise
-        dampen_list([second | tail], new_dir, count, [second, first])
+        dampen_list([second | tail], new_dir, count, [second, first], original_list)
       else
         # add the next element to the acc
-        dampen_list([second | tail], new_dir, count, [second | acc])
+        dampen_list([second | tail], new_dir, count, [second | acc], original_list)
       end
     end
   end
 
-  def dampen_list([head | tail], direction, count, acc) do
-    dampen_list(tail, direction, count, [head | acc])
+  def dampen_list([head | tail], direction, count, acc, original_list) do
+    dampen_list(tail, direction, count, [head | acc], original_list)
   end
 end
