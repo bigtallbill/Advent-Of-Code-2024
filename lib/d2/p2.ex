@@ -14,11 +14,11 @@ defmodule D2.P2 do
     |> String.split("\n", trim: true)
     |> Enum.map(&split_line/1)
     |> Enum.map(&dampen_list/1)
-    |> tap(fn x ->
-      Enum.filter(x, fn {state, _, _, _} -> state == :bad_direction or state == :bad_magnitude end)
-      |> Enum.map(&IO.inspect(&1, charlists: :as_lists))
-    end)
-    |> tap(&IO.inspect(length(&1)))
+    # |> tap(fn x ->
+    #   Enum.filter(x, fn {state, _, _, _} -> state == :bad_direction or state == :bad_magnitude end)
+    #   |> Enum.map(&IO.inspect(&1, charlists: :as_lists))
+    # end)
+    # |> tap(&IO.inspect(length(&1)))
     |> Enum.filter(fn {state, _, _, _} -> state != :bad_direction and state != :bad_magnitude end)
     |> length()
   end
