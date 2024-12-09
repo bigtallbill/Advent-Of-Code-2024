@@ -15,6 +15,7 @@ defmodule Aoc24 do
       {D2.P1, "Day 2, Part 1"},
       {D2.P2, "Day 2, Part 2"},
       {D3.P1, "Day 3, Part 1"},
+      {D4.P1, "Day 4, Part 1"},
       # Add new solutions here as they are implemented
     ]
     |> Enum.each(&run_solution/1)
