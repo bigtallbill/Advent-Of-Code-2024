@@ -12,7 +12,7 @@ defmodule D4.P1 do
   def run_with_input(input) do
     input
     |> String.split("\n", trim: true)
-    |> Enum.map(&String.graphemes/1)
+    |> Stream.map(&String.graphemes/1)
     |> to_grid_map()
     |> find_words()
   end
@@ -46,6 +46,11 @@ defmodule D4.P1 do
       {1, -1}
     ]
 
+    # for each X, check all directions for valid words and count them
+    # the for comprehension allows us to do a nested loop on the grid and directions
+    # so another way to say it is: for each grid position, check all directions for valid words
+    #
+    # We also make use of elixir's pattern matching to only check grid coordinates that have an X value
     (for {{x, y}, "X"} <- grid, direction <- directions, do: check_direction(grid, {x, y}, direction))
     |> Enum.count(& &1)
   end
