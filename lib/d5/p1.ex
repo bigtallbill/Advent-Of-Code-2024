@@ -32,9 +32,12 @@ defmodule D5.P1 do
 
   def correctly_ordered_updates(%{rules: rules, updates: updates}) do
     updates
-    |> Enum.filter(&is_valid_update?(&1, rules))
+    |> Stream.filter(&is_valid_update?(&1, rules))
   end
 
+  @doc """
+  Check if an update is valid by checking if the update values are correctly odered based on the rules.
+  """
   def is_valid_update?(update, rules) do
     update
     |> get_rules_for_update(rules)
@@ -57,9 +60,12 @@ defmodule D5.P1 do
     end)
   end
 
+  @doc """
+  Gets the middle number of each update.
+  """
   def get_middle_numbers(updates) do
     updates
-    |> Enum.map(fn update ->
+    |> Stream.map(fn update ->
       length = length(update)
       middle_index = div(length, 2)
       Enum.at(update, middle_index)
@@ -71,9 +77,13 @@ defmodule D5.P1 do
   A rule is applicable if both of its values are in the update.
   """
   def get_rules_for_update(update, rules) do
-    Enum.filter(rules, fn {a, b} -> Enum.member?(update, a) and Enum.member?(update, b) end)
+    Stream.filter(rules, fn {a, b} -> Enum.member?(update, a) and Enum.member?(update, b) end)
   end
 
+  @doc """
+  Parse a rule into a tuple of two integers.
+  e.g "1|2" -> {1, 2}
+  """
   def parse_rule(rule) do
     rule
     |> String.split("|", trim: true)
@@ -81,6 +91,10 @@ defmodule D5.P1 do
     |> List.to_tuple()
   end
 
+  @doc """
+  Parse an update into a list of integers.
+  e.g "1,2,3" -> [1, 2, 3]
+  """
   def parse_update(update) do
     update
     |> String.split(",", trim: true)
