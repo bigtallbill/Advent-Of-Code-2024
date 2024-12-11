@@ -12,8 +12,11 @@ defmodule D5.P1 do
   def run_with_input(input) do
     input
     |> parse_input()
-    |> process()
+    |> correctly_ordered_updates()
+    |> get_middle_numbers()
+    |> Enum.sum()
   end
+
 
   def parse_input(input) do
     input
@@ -27,10 +30,40 @@ defmodule D5.P1 do
     end.()
   end
 
-  def count_invalid_updates(%{rules: rules, updates: updates}) do
+  def correctly_ordered_updates(%{rules: rules, updates: updates}) do
     updates
     |> Enum.filter(&is_valid_update?(&1, rules))
-    |> length()
+  end
+
+  def is_valid_update?(update, rules) do
+    rules_for_update = get_rules_for_update(update, rules)
+
+    Enum.reduce_while(rules_for_update, true, fn {rule_subject, must_be_before}, _ ->
+      result = Enum.reduce_while(update, true, fn num, _ ->
+        cond do
+          num == rule_subject ->
+            {:halt, true}
+          num == must_be_before ->
+            {:halt, false}
+          true ->
+            {:cont, true}
+        end
+      end)
+
+      case result do
+        true -> {:cont, true}
+        false -> {:halt, false}
+      end
+    end)
+  end
+
+  def get_middle_numbers(updates) do
+    updates
+    |> Enum.map(fn update ->
+      length = length(update)
+      middle_index = div(length, 2)
+      Enum.at(update, middle_index)
+    end)
   end
 
   @doc """
@@ -39,17 +72,6 @@ defmodule D5.P1 do
   """
   def get_rules_for_update(update, rules) do
     Enum.filter(rules, fn {a, b} -> Enum.member?(update, a) and Enum.member?(update, b) end)
-  end
-
-  def is_valid_update?(update, rules) do
-    rules_for_update = get_rules_for_update(update, rules)
-    rule_map = Enum.reduce(rules_for_update, %{}, fn {a, b}, acc -> Map.put(acc, a, b) end)
-
-    original_update = update
-
-    sorted_by_rules = Enum.sort(update, fn a, b -> rule_map[a] > rule_map[b] end)
-
-    sorted_by_rules == original_update
   end
 
   def parse_rule(rule) do
@@ -63,9 +85,5 @@ defmodule D5.P1 do
     update
     |> String.split(",", trim: true)
     |> Enum.map(&String.to_integer/1)
-  end
-
-  def process(parsed_input) do
-    # TODO: Implement solution
   end
 end

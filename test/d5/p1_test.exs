@@ -56,14 +56,18 @@ defmodule D5.P1Test do
   end
 
   test "is_valid_update? returns expected result" do
-    # assert D5.P1.is_valid_update?([97, 61, 88], [
-    #          {47, 53},
-    #          {97, 13},
-    #          {97, 61}
-    #        ]) == false
-
     assert D5.P1.is_valid_update?([97, 61, 88], [
-             {97, 61}
+             {61, 97}
+           ]) == false
+
+    assert D5.P1.is_valid_update?([97, 61, 88, 91, 50], [
+             {97, 61},
+             {61, 88}
            ]) == true
+
+    assert D5.P1.is_valid_update?(
+      [75, 47, 61, 53, 29],
+      [{47, 53}, {97, 13}, {97, 61}, {97, 47}, {75, 29}, {61, 13}, {75, 53}, {29, 13}, {97, 29}, {53, 29}, {61, 53}, {97, 53}, {61, 29}, {47, 13}, {75, 47}, {97, 75}, {47, 61}, {75, 61}, {47, 29}, {75, 13}, {53, 13}])
+       == true
   end
 end
