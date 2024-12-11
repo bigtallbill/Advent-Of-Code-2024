@@ -19,6 +19,7 @@ defmodule Aoc24 do
       {D3.P1, "Day 3, Part 1"},
       {D4.P1, "Day 4, Part 1"},
       {D5.P1, "Day 5, Part 1"},
+      {D6.P1, "Day 6, Part 1"},
       # Add new solutions here as they are implemented
     ]
     |> Enum.each(&run_solution/1)
@@ -61,6 +62,7 @@ defmodule Aoc24 do
       {D3.P1, "Day 3, Part 1"},
       {D4.P1, "Day 4, Part 1"},
       {D5.P1, "Day 5, Part 1"},
+      {D6.P1, "Day 6, Part 1"},
       # Add new solutions here as they are implemented
     ]
     |> Enum.each(&benchmark_solution/1)
