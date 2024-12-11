@@ -17,7 +17,6 @@ defmodule D5.P1 do
     |> Enum.sum()
   end
 
-
   def parse_input(input) do
     input
     |> String.trim()
