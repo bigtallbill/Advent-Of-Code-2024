@@ -36,9 +36,9 @@ defmodule D5.P1 do
   end
 
   def is_valid_update?(update, rules) do
-    rules_for_update = get_rules_for_update(update, rules)
-
-    Enum.reduce_while(rules_for_update, true, fn {rule_subject, must_be_before}, _ ->
+    update
+    |> get_rules_for_update(rules)
+    |> Enum.reduce_while(true, fn {rule_subject, must_be_before}, _ ->
       result = Enum.reduce_while(update, true, fn num, _ ->
         cond do
           num == rule_subject ->
