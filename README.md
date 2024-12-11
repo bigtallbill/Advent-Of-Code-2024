@@ -26,6 +26,20 @@ mix run -e "Aoc24.run_day(1, 1)"  # Run Day 1, Part 1
 
 Each solution will display its result and execution time.
 
+### Benchmark Solutions
+
+To get more accurate performance metrics, you can run the benchmark suite which executes each solution multiple times:
+
+```bash
+mix run -e "Aoc24.benchmark_all"
+```
+
+This will run each solution 100 times and display:
+- The solution result
+- Average execution time
+- Minimum execution time
+- Maximum execution time
+
 ## Prerequisites
 
 - Elixir
