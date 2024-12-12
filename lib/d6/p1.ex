@@ -19,11 +19,18 @@ defmodule D6.P1 do
     input
     |> String.split("\n", trim: true)
     |> Enum.with_index()
-    |> Enum.map(fn {line, y} ->
+    |> Enum.reduce([], fn {line, y}, acc ->
       line
       |> String.graphemes()
       |> Enum.with_index()
-      |> Enum.map(fn {char, x} -> {x, y, char} end)
+      |> Enum.reduce(acc, fn {char, x}, acc ->
+        [{x, y, char} | acc]
+      end)
     end)
+  end
+
+  def get_start(grid) do
+    grid
+    |> Enum.find(nil, fn {_, _, char} -> char == "^" end)
   end
 end

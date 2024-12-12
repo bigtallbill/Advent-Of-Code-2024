@@ -13,7 +13,31 @@ defmodule D6.P1Test do
   end
 
   test "build_grid" do
-    input = File.read!("lib/d6/test_input.txt")
-    assert D6.P1.build_grid(input) == []
+    input = """
+    #..
+    ..#
+    ^#.
+    """
+    assert D6.P1.build_grid(input) == [
+      {2, 2, "."},
+      {1, 2, "#"},
+      {0, 2, "^"},
+      {2, 1, "#"},
+      {1, 1, "."},
+      {0, 1, "."},
+      {2, 0, "."},
+      {1, 0, "."},
+      {0, 0, "#"}
+    ]
+  end
+
+  test "get_start" do
+    assert """
+    #..
+    ..#
+    ^#.
+    """
+    |> D6.P1.build_grid()
+    |> D6.P1.get_start() == {0, 2, "^"}
   end
 end
