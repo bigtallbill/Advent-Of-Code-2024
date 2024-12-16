@@ -29,4 +29,14 @@ defmodule D7.P1Test do
       %{:target => 292, :calibration => [11, 6, 16, 20]}
     ]
   end
+
+  test "parse_line" do
+    assert D7.P1.parse_line("190: 10 19") == %{:target => 190, :calibration => [10, 19]}
+  end
+
+  test "search" do
+    #assert D7.P1.search(195, [10, 19, 5]) == {195, "a = 10 * 19 + 5 "}
+    #assert D7.P1.search(197, [10, 19, 5]) == :not_found
+    assert D7.P1.search(292, [11, 6, 16, 20]) == {292, "a = 11 + 6 * 16 + 20 "}
+  end
 end
