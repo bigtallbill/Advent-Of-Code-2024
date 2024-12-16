@@ -18,7 +18,9 @@ defmodule D7.P1 do
     |> Enum.map(fn %{target: target, calibration: calibration} ->
       search(target, calibration)
     end)
-    |> tap(&IO.inspect/1)
+    |> Enum.filter(fn result -> result != :not_found end)
+    |> Enum.map(fn {result, _} -> result end)
+    |> Enum.sum()
   end
 
   def parse_line(line) do
@@ -29,22 +31,23 @@ defmodule D7.P1 do
     }
   end
 
-  def search(target, calibration) do
-    generate_operation_combinations(calibration)
-    |> tap(&IO.inspect/1)
-    |> Enum.map(fn operation ->
-      {result, _} = Code.eval_string(operation)
-      {result, operation}
+  def search(target, numbers) do
+    spaces = length(numbers) - 1
+
+    result = generate_combinations(@symbols, spaces)
+    |> Enum.find_value(fn operators ->
+      result = evaluate_left_to_right(numbers, operators)
+      if result == target do
+        expression = numbers
+        |> Enum.zip(operators ++ [""])
+        |> Enum.map_join(" ", fn {num, op} -> "#{num} #{op}" end)
+        {target, "a = #{expression}"}
+      end
     end)
-    |> tap(&IO.inspect/1)
-    |> Enum.find(:not_found, fn {result, _} ->
-      result == target
-    end)
-    |> tap(&IO.inspect/1)
+
+    result || :not_found
   end
 
-
-  @spec generate_combinations(any(), non_neg_integer()) :: any()
   def generate_combinations(symbols, spaces) do
     symbols
     |> List.duplicate(spaces)
@@ -55,15 +58,15 @@ defmodule D7.P1 do
     end)
   end
 
-  def generate_operation_combinations(numbers) do
-    spaces = length(numbers) - 1  # You need one less operator than numbers
-
-    generate_combinations(@symbols, spaces)
-    |> Enum.map(fn operators ->
-      numbers
-      |> Enum.zip(operators ++ [""])  # Add empty operator for last number
-      |> Enum.map_join(" ", fn {num, op} -> "(#{num} #{op})" end)
-      |> (&("a = " <> &1)).()
+  def evaluate_left_to_right(numbers, operators) do
+    [first | rest] = numbers
+    operators
+    |> Enum.zip(rest)
+    |> Enum.reduce(first, fn {op, num}, acc ->
+      case op do
+        "+" -> acc + num
+        "*" -> acc * num
+      end
     end)
   end
 end
